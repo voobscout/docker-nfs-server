@@ -8,6 +8,7 @@ for mnt in "${mounts[@]}"; do
     src=$(echo $mnt | awk -F':' '{ print $1 }')
     ! [ -d /exports/${src:1} ] && mkdir -p /exports/${src:1}
     mount --bind $src /exports/${src:1}
+    echo "/ *(ro,sync,fsid=0)" >> /etc/exports
     echo "$src *(rw,sync,no_subtree_check,fsid=0,no_root_squash)" >> /etc/exports
 done
 
